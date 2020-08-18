@@ -54,10 +54,10 @@ def process_text(text_doc):
 
 #%%
 
-print('Arguments:', sys.argv)
-filename = sys.argv[1]
+# print('Arguments:', sys.argv)
+# filename = sys.argv[1]
 
-#filename = 'investing_article.txt'
+filename = 'scrape-article/identify-topic/investing_article.txt'
 
 # read-in article
 article = read_article(filename)
@@ -101,9 +101,9 @@ cvect.fit(sentences)
 cvect.get_feature_names()
 
 #%%
-tfidf = TfidfVectorizer(ngram_range=(1, 2),
-                        max_df=0.95,
-                        min_df=1,
+tfidf = TfidfVectorizer(ngram_range=(2, 2),
+                        max_df=0.99,
+                        min_df=2,
                         stop_words='english'
                         )
 tfidf.fit(sentences)
@@ -133,25 +133,27 @@ print('\n\n')
 
 #%%
 
-## TFIDF VOCABULARY
-## create dataframe with results
-#tfidf_df = pd.DataFrame({'words': list(tfidf.vocabulary_.keys()),
+# # TFIDF VOCABULARY
+# # create dataframe with results
+# tfidf_df = pd.DataFrame({'words': list(tfidf.vocabulary_.keys()),
 #                         'count': list(tfidf.vocabulary_.values())})
-#
-#tfidf_df.sort_values('count', ascending=False)
-#
-## compute percent of appearance in documents
-##df['percent'] = df['count'] / df['count'].sum()
-#
-#tfidf_df['percent'] = tfidf_df['count'] / len(sentences)
-#
-#print('\n\n')
-#print('(TFIDF) Most frequent appearances'.center(50, '-'))
-#print(tfidf_df.sort_values('percent', ascending=False)[:30])
-#print('\n\n')
 
+# tfidf_df.sort_values('count', ascending=False)
+
+# # compute percent of appearance in documents
+# #df['percent'] = df['count'] / df['count'].sum()
+
+# tfidf_df['percent'] = tfidf_df['count'] / len(sentences)
+
+# print('\n\n')
+# print('(TFIDF) Most frequent appearances'.center(50, '-'))
+# print(tfidf_df.sort_values('percent', ascending=False)[:30])
+# print('\n\n')
+
+# NOTE:
+    # results (word counts) are identical between TFIDF and CountVectorizer
 
 #%%
-
+# word count
 Counter(tfidf.vocabulary_).most_common(10)
 
